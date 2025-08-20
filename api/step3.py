@@ -30,6 +30,7 @@ def train_and_detect():
 
     # Train Isolation Forest
     model = IsolationForest(contamination=0.05, random_state=42)
+    step1.DATASET_CACHE["model"] = model
     model.fit(X_train)
 
     # Predict anomalies on test data

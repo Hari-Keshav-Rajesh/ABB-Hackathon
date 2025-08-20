@@ -5,7 +5,7 @@ from sklearn.impute import SimpleImputer
 
 def run_simulation():
     df = step1.DATASET_CACHE.get("dataset")
-    ranges = step2.RANGES_CACHE.get("ranges")
+    ranges = step1.DATASET_CACHE.get("ranges")
 
     if df is None or ranges is None:
         raise HTTPException(status_code=400, detail="Dataset or ranges not set")
@@ -26,7 +26,7 @@ def run_simulation():
     X_sim = imputer.fit_transform(X_sim)
 
     # Train new Isolation Forest (or reuse one if cached)
-    model = step3.train_and_detect.__globals__.get("model", None)
+    model = step1.DATASET_CACHE.get("model", None)
     if model is None:
         raise HTTPException(status_code=400, detail="No trained model found. Run training first.")
 
