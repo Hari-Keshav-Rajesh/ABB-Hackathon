@@ -26,8 +26,8 @@ def load_dataset(nrows=50000, filename="train_numeric.csv"):
     if "synthetic_timestamp" not in df.columns:
         start_time = datetime(2021, 1, 1, 0, 0, 0)
         df["synthetic_timestamp"] = [
-            start_time + timedelta(seconds=i) for i in range(len(df))
-        ]
+                                        start_time + timedelta(minutes=i) for i in range(len(df))
+                                    ] #range of 34.7 days
 
     DATASET_CACHE["dataset"] = df
     print(f"✅ Dataset subset loaded: {len(df)} rows, {len(df.columns)} columns")
