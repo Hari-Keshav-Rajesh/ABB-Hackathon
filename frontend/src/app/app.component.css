@@ -1,0 +1,19 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stepper-card {
+  margin-top: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}

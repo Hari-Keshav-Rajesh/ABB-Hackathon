@@ -1,0 +1,147 @@
+<div class="simulation-container">
+  <h2>Real-time Simulation</h2>
+
+  <!-- Control Panel -->
+  <mat-card class="control-card">
+    <mat-card-content>
+      <div class="control-panel">
+        <button mat-raised-button color="primary" 
+                [disabled]="isRunning"
+                (click)="isCompleted ? restartSimulation() : startSimulation()">
+          <mat-spinner *ngIf="isRunning" diameter="20" class="mr-2"></mat-spinner>
+          {{ isRunning ? 'Simulation Running...' : (isCompleted ? 'Restart Simulation' : 'Start Simulation') }}
+        </button>
+        
+        <div *ngIf="isCompleted" class="completion-message">
+          <mat-icon color="primary">check_circle</mat-icon>
+          <span>Simulation completed</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Stats Panel -->
+  <mat-card *ngIf="simulationData.length > 0" class="stats-panel">
+    <mat-card-header>
+      <mat-card-title>Live Statistics</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Predictions:</span>
+          <span class="stat-value">{{ stats.totalPredictions }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Pass Count:</span>
+          <span class="stat-value success">{{ stats.passCount }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fail Count:</span>
+          <span class="stat-value error">{{ stats.failCount }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Avg Confidence:</span>
+          <span class="stat-value">{{ stats.avgConfidence }}%</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Charts Section -->
+  <div *ngIf="simulationData.length > 0" class="charts-section">
+    <div class="charts-grid">
+      <!-- Quality Score Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Quality Score Trend</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="qualityChartData"
+                    [options]="lineChartOptions"
+                    type="line">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Pass/Fail Distribution Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Prediction Distribution</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="distributionChartData"
+                    [options]="doughnutChartOptions"
+                    type="doughnut">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <mat-card *ngIf="simulationData.length > 0" class="table-card mt-2">
+    <mat-card-header>
+      <mat-card-title>Live Data Stream</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="simulation-table">
+        <table mat-table [dataSource]="simulationData" class="full-width">
+          <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef>Time</th>
+            <td mat-cell *matCellDef="let row">{{ row.time }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="sampleId">
+            <th mat-header-cell *matHeaderCellDef>Sample ID</th>
+            <td mat-cell *matCellDef="let row">{{ row.sampleId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="prediction">
+            <th mat-header-cell *matHeaderCellDef>Prediction</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-chip [class]="row.prediction === 'Pass' ? 'success-chip' : 'error-chip'">
+                {{ row.prediction }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="confidence">
+            <th mat-header-cell *matHeaderCellDef>Confidence %</th>
+            <td mat-cell *matCellDef="let row">{{ row.confidence }}%</td>
+          </ng-container>
+
+          <ng-container matColumnDef="temperature">
+            <th mat-header-cell *matHeaderCellDef>Temperature</th>
+            <td mat-cell *matCellDef="let row">{{ row.temperature }}°C</td>
+          </ng-container>
+
+          <ng-container matColumnDef="pressure">
+            <th mat-header-cell *matHeaderCellDef>Pressure</th>
+            <td mat-cell *matCellDef="let row">{{ row.pressure }} bar</td>
+          </ng-container>
+
+          <ng-container matColumnDef="humidity">
+            <th mat-header-cell *matHeaderCellDef>Humidity</th>
+            <td mat-cell *matCellDef="let row">{{ row.humidity }}%</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Actions -->
+  <div class="actions mt-2">
+    <button mat-button (click)="onPrevious()">Previous</button>
+    <span class="spacer"></span>
+    <mat-chip *ngIf="isCompleted" color="primary">Workflow Complete!</mat-chip>
+  </div>
+</div>

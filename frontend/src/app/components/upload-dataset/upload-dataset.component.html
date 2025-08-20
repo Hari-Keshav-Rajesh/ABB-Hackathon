@@ -1,0 +1,56 @@
+<div class="upload-container">
+  <h2>Upload Dataset</h2>
+  
+  <mat-card class="upload-card">
+    <mat-card-content>
+      <div class="drag-drop-zone" 
+           (click)="fileInput.click()"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave($event)"
+           (drop)="onDrop($event)">
+        <mat-icon style="font-size: 48px; color: #ccc;">cloud_upload</mat-icon>
+        <h3>Click to select a CSV file or drag and drop</h3>
+        <p>Upload your dataset to begin analysis</p>
+        <input #fileInput type="file" accept=".csv" style="display: none;" (change)="onFileSelected($event)">
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="fileSelected" class="summary-card mt-2">
+    <mat-card-header>
+      <mat-card-title>Dataset Summary</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <strong>File Name:</strong>
+          <span>{{ datasetSummary.fileName }}</span>
+        </div>
+        <div class="summary-item">
+          <strong>Total Records:</strong>
+          <span>{{ datasetSummary.totalRecords | number }}</span>
+        </div>
+        <div class="summary-item">
+          <strong>Total Columns:</strong>
+          <span>{{ datasetSummary.totalColumns }}</span>
+        </div>
+        <div class="summary-item">
+          <strong>Pass Rate:</strong>
+          <span>{{ datasetSummary.passRate }}%</span>
+        </div>
+        <div class="summary-item">
+          <strong>Date Range:</strong>
+          <span>{{ datasetSummary.dateRange }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="actions mt-2">
+    <button mat-raised-button color="primary" 
+            [disabled]="!fileSelected"
+            (click)="onNext()">
+      Next
+    </button>
+  </div>
+</div>

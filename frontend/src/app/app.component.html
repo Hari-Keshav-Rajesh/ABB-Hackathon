@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <span>IntelliInspect</span>
+  <span class="spacer"></span>
+  <span>Step {{ currentStep + 1 }} of 4</span>
+</mat-toolbar>
+
+<div class="container">
+  <mat-card class="stepper-card">
+    <mat-horizontal-stepper #stepper [(selectedIndex)]="currentStep" linear="false">
+      <mat-step [completed]="stepCompleted[0]">
+        <ng-template matStepLabel>Upload Dataset</ng-template>
+        <app-upload-dataset 
+          (stepCompleted)="onStepCompleted(0)"
+          (nextStep)="nextStep()">
+        </app-upload-dataset>
+      </mat-step>
+
+      <mat-step [completed]="stepCompleted[1]">
+        <ng-template matStepLabel>Date Ranges</ng-template>
+        <app-date-ranges 
+          (stepCompleted)="onStepCompleted(1)"
+          (nextStep)="nextStep()"
+          (previousStep)="previousStep()">
+        </app-date-ranges>
+      </mat-step>
+
+      <mat-step [completed]="stepCompleted[2]">
+        <ng-template matStepLabel>Model Training</ng-template>
+        <app-model-training 
+          (stepCompleted)="onStepCompleted(2)"
+          (nextStep)="nextStep()"
+          (previousStep)="previousStep()">
+        </app-model-training>
+      </mat-step>
+
+      <mat-step [completed]="stepCompleted[3]">
+        <ng-template matStepLabel>Simulation</ng-template>
+        <app-simulation 
+          (stepCompleted)="onStepCompleted(3)"
+          (previousStep)="previousStep()">
+        </app-simulation>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

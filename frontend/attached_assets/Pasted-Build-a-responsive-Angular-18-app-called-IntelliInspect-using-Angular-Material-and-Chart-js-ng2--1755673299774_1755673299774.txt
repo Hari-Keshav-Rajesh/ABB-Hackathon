@@ -1,0 +1,64 @@
+Build a responsive Angular 18+ app called *IntelliInspect* using Angular Material and Chart.js (ng2-charts).  
+
+The app should have *4 steps* in a top navigation workflow. Do not include any backend or API calls — instead, use static dummy data or RxJS timers to simulate responses. The app must look and behave as if connected to a backend, but all logic stays inside the frontend.
+
+---
+
+### Global UI
+- Top navigation with 4 tabs: Upload Dataset, Date Ranges, Model Training, Simulation.
+- Show step indicator: “Step X of 4”.
+- Use Angular Material for layout, forms, cards, tables, charts, and responsiveness.
+
+---
+
+### Step 1: Upload Dataset
+- Show a card with dashed drag-and-drop zone and a button. Text: *“Click to select a CSV file or drag and drop”*.
+- When a file is selected, ignore its content and display a static dataset summary:
+  - File name: bosch.csv
+  - Total records: 14704
+  - Total columns: 5
+  - Pass Rate: 70%
+  - Date Range: 2021-01-01 to 2021-01-02
+- Enable “Next” button after selection.
+
+---
+
+### Step 2: Date Ranges
+- Three Material cards: Training, Testing, Simulation, each with start/end date pickers.
+- “Validate Ranges” button shows static validation result:
+  - *“Date ranges validated successfully!”* with a green check mark.
+  - Duration summary: Training: 10 days/10000 records, Testing: 5 days/3000 records, Simulation: 5 days/1704 records.
+- Show a bar chart with dummy monthly volume data:
+  - Green = training, Orange = testing, Blue = simulation.
+- Enable “Next” after validation.
+
+---
+
+### Step 3: Model Training
+- “Train Model” button triggers display of static results:
+  - Metric cards: Accuracy 92%, Precision 90%, Recall 88%, F1 89%.
+  - Line chart (dummy data) showing Accuracy vs Loss over epochs.
+  - Donut chart for Confusion Matrix: TP 1234, TN 4567, FP 123, FN 98.
+  - Status text: *“Model Trained Successfully”*.
+- Enable “Next” after training.
+
+---
+
+### Step 4: Simulation
+- “Start Simulation” button begins a dummy stream of records (1 per second) using RxJS interval.
+- For each simulated row, display:
+  - Line chart of Quality Score (random values 70–100) over time.
+  - Donut chart of Pass vs Fail confidence distribution (green/red).
+  - Stats panel: total predictions, pass count, fail count, avg confidence.
+  - Live Material Table (scrollable) with columns: Time, Sample ID, Prediction, Confidence %, Temperature, Pressure, Humidity. Fill with synthetic random values.
+- After 20 rows, stop the stream and show:
+  - *“✔ Simulation completed”* and button text changes to *“Restart Simulation”*.
+
+---
+
+### Requirements
+- Angular 18 + Angular Material + Chart.js (ng2-charts).
+- All steps fully interactive but powered by static/dummy data.
+- Clean, responsive UI.
+- No backend or API integration.
+- App should run independently with ng serve.

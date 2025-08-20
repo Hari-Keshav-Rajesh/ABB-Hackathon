@@ -1,0 +1,66 @@
+.date-ranges-container {
+  padding: 20px;
+}
+
+.forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.range-card {
+  height: fit-content;
+}
+
+.validation-section {
+  text-align: center;
+}
+
+.validation-result {
+  background-color: #e8f5e8;
+  border-left: 4px solid #4caf50;
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.duration-summary h4 {
+  margin-bottom: 8px;
+  color: #1976d2;
+}
+
+.summary-chips {
+  margin-top: 8px;
+}
+
+.chart-card {
+  margin-top: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .date-ranges-container {
+    padding: 10px;
+  }
+  
+  .forms-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

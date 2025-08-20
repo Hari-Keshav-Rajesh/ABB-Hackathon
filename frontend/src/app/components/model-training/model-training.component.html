@@ -1,0 +1,131 @@
+<div class="training-container">
+  <h2>Model Training</h2>
+
+  <!-- Training Button -->
+  <mat-card class="training-control-card">
+    <mat-card-content>
+      <div class="training-control">
+        <button mat-raised-button color="primary" 
+                [disabled]="isTraining"
+                (click)="trainModel()">
+          <mat-spinner *ngIf="isTraining" diameter="20" class="mr-2"></mat-spinner>
+          {{ isTraining ? 'Training Model...' : 'Train Model' }}
+        </button>
+        
+        <div *ngIf="trainingComplete" class="status-message">
+          <mat-icon color="primary">check_circle</mat-icon>
+          <span>Model Trained Successfully</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Results Section -->
+  <div *ngIf="trainingComplete" class="results-section">
+    <!-- Metrics Cards -->
+    <div class="metrics-grid">
+      <mat-card class="metric-card">
+        <mat-card-content>
+          <div class="metric-content">
+            <div class="metric-value">{{ metrics.accuracy }}%</div>
+            <div class="metric-label">Accuracy</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-card">
+        <mat-card-content>
+          <div class="metric-content">
+            <div class="metric-value">{{ metrics.precision }}%</div>
+            <div class="metric-label">Precision</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-card">
+        <mat-card-content>
+          <div class="metric-content">
+            <div class="metric-value">{{ metrics.recall }}%</div>
+            <div class="metric-label">Recall</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-card">
+        <mat-card-content>
+          <div class="metric-content">
+            <div class="metric-value">{{ metrics.f1 }}%</div>
+            <div class="metric-label">F1 Score</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-grid">
+      <!-- Training Progress Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Training Progress</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="lineChartData"
+                    [options]="lineChartOptions"
+                    type="line">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Confusion Matrix Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Confusion Matrix</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="doughnutChartData"
+                    [options]="doughnutChartOptions"
+                    type="doughnut">
+            </canvas>
+          </div>
+          
+          <!-- Confusion Matrix Details -->
+          <div class="confusion-details mt-2">
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">True Positive:</span>
+                <span class="detail-value">{{ confusionMatrix.tp | number }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">True Negative:</span>
+                <span class="detail-value">{{ confusionMatrix.tn | number }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">False Positive:</span>
+                <span class="detail-value">{{ confusionMatrix.fp | number }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">False Negative:</span>
+                <span class="detail-value">{{ confusionMatrix.fn | number }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions mt-2">
+    <button mat-button (click)="onPrevious()">Previous</button>
+    <button mat-raised-button color="primary" 
+            [disabled]="!trainingComplete"
+            (click)="onNext()">
+      Next
+    </button>
+  </div>
+</div>

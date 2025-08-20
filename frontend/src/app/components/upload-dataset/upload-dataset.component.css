@@ -1,0 +1,54 @@
+.upload-container {
+  padding: 20px;
+}
+
+.upload-card {
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background-color: #f8f9fa;
+  border-left: 4px solid #4caf50;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.summary-item strong {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+
+.summary-item span {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #1976d2;
+}
+
+.actions {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .upload-container {
+    padding: 10px;
+  }
+  
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
