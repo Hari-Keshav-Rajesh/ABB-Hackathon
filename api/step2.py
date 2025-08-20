@@ -54,4 +54,14 @@ def validate_date_ranges(train_start, train_end, test_start, test_end, sim_start
         }
     }
 
+    # ✅ Store globally in cache
+    step1.DATASET_CACHE["ranges"] = {
+        "train_start": train_start,
+        "train_end": train_end,
+        "test_start": test_start,
+        "test_end": test_end,
+        "sim_start": sim_start,
+        "sim_end": sim_end
+    }
+
     return summary

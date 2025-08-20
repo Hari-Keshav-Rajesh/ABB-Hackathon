@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 import step1
 import step2
+import step3
+import step4
 
 app = FastAPI()
 
@@ -47,3 +49,13 @@ def validate_ranges(ranges: dict):
         return JSONResponse(content=result)
     except KeyError:
         raise HTTPException(status_code=400, detail="Missing one or more required date fields")
+
+@app.post("/train-and-detect")
+def train_and_detect():
+    return step3.train_and_detect()
+
+import step4
+
+@app.post("/run-simulation")
+def run_simulation():
+    return step4.run_simulation()
