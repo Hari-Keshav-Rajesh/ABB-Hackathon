@@ -60,6 +60,6 @@ curl -X POST http://localhost:8000/run-simulation
 ### Troubleshooting
 - Backend fails on startup with "Dataset not found": Ensure `api/train_numeric.csv` exists. The backend loads only the first 50,000 rows by default for speed.
 - `No trained model found` on `/run-simulation`: Call `/validate-ranges` then `/train-and-detect` first.
-- Frontend 404 or port in use: Change the dev server port using `npx ng serve --port 5001` and update your links.
+- Frontend 404 or port already in use: Change the dev server port using `npx ng serve --port 5001` and update your links.
 
 
